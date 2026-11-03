@@ -1,0 +1,73 @@
+$ python -m ruff check src tests
+All checks passed!
+
+$ python -m pytest -v --cov=src --cov-report=term-missing --cov-report=html --cov-fail-under=80
+============================= test session starts ==============================
+
+tests/test_casos_csv.py::test_casos_desde_csv[CP01] PASSED               [  2%]
+tests/test_casos_csv.py::test_casos_desde_csv[CP02] PASSED               [  4%]
+tests/test_casos_csv.py::test_casos_desde_csv[CP03] PASSED               [  6%]
+tests/test_casos_csv.py::test_casos_desde_csv[CP04] PASSED               [  8%]
+tests/test_casos_csv.py::test_casos_desde_csv[CP05] PASSED               [ 10%]
+tests/test_casos_csv.py::test_casos_desde_csv[CP06] PASSED               [ 12%]
+tests/test_casos_csv.py::test_casos_desde_csv[CP07] PASSED               [ 14%]
+tests/test_casos_csv.py::test_casos_desde_csv[CP08] PASSED               [ 16%]
+tests/test_casos_csv.py::test_casos_desde_csv[CP09] PASSED               [ 18%]
+tests/test_casos_csv.py::test_casos_desde_csv[CP10] PASSED               [ 20%]
+tests/test_casos_csv.py::test_casos_desde_csv[CP11] PASSED               [ 22%]
+tests/test_casos_csv.py::test_casos_desde_csv[CP12] PASSED               [ 25%]
+tests/test_integration.py::test_checkout_approved_then_order_is_persisted_as_confirmed PASSED [ 27%]
+tests/test_integration.py::test_rejected_payment_and_rollback_leave_database_empty PASSED [ 29%]
+tests/test_order.py::test_vip_discount PASSED                            [ 31%]
+tests/test_order.py::test_regular_no_discount PASSED                     [ 33%]
+tests/test_order.py::test_customer_debt PASSED                           [ 35%]
+tests/test_order.py::test_invalid_total[0] PASSED                        [ 37%]
+tests/test_order.py::test_invalid_total[-1] PASSED                       [ 39%]
+tests/test_order.py::test_vip_discount_on_200 PASSED                     [ 41%]
+tests/test_order.py::test_regular_customer_pays_full_200 PASSED          [ 43%]
+tests/test_order.py::test_cannot_confirm_twice PASSED                    [ 45%]
+tests/test_repository.py::test_repository_commit PASSED                  [ 47%]
+tests/test_repository.py::test_repository_rollback PASSED                [ 50%]
+tests/test_repository.py::test_repository_persists_second_order PASSED   [ 52%]
+tests/test_repository.py::test_repository_rejects_duplicate_id_and_keeps_original PASSED [ 54%]
+tests/test_security.py::test_owner_within_24h PASSED                     [ 56%]
+tests/test_security.py::test_stranger_denied PASSED                      [ 58%]
+tests/test_security.py::test_shipped_denied_even_admin PASSED            [ 60%]
+tests/test_security.py::test_expired_denied PASSED                       [ 62%]
+tests/test_security.py::test_admin_cancels_new_order_of_another_user PASSED [ 64%]
+tests/test_security.py::test_owner_at_exactly_24h_denied PASSED          [ 66%]
+tests/test_security.py::test_default_now_is_used_when_not_provided PASSED [ 68%]
+tests/test_security.py::test_authorization_matrix[dueno-1h-NEW] PASSED   [ 70%]
+tests/test_security.py::test_authorization_matrix[dueno-23h59-NEW] PASSED [ 72%]
+tests/test_security.py::test_authorization_matrix[dueno-24h-NEW] PASSED  [ 75%]
+tests/test_security.py::test_authorization_matrix[dueno-25h-NEW] PASSED  [ 77%]
+tests/test_security.py::test_authorization_matrix[tercero-1h-NEW] PASSED [ 79%]
+tests/test_security.py::test_authorization_matrix[admin-tercero-NEW] PASSED [ 81%]
+tests/test_security.py::test_authorization_matrix[dueno-1h-CONFIRMED] PASSED [ 83%]
+tests/test_security.py::test_authorization_matrix[dueno-SHIPPED] PASSED  [ 85%]
+tests/test_security.py::test_authorization_matrix[admin-SHIPPED] PASSED  [ 87%]
+tests/test_service.py::test_gateway_approved PASSED                      [ 89%]
+tests/test_service.py::test_gateway_rejected PASSED                      [ 91%]
+tests/test_service.py::test_gateway_rejected_for_vip_200_charges_170 PASSED [ 93%]
+tests/test_service.py::test_gateway_timeout_propagates PASSED            [ 95%]
+tests/test_service.py::test_domain_error_never_reaches_gateway PASSED    [ 97%]
+tests/test_service.py::test_rejected_payment_should_not_leave_order_confirmed XFAIL [100%]
+
+---------------------- generated xml file: /tmp/junit.xml ----------------------
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.3-final-0 ________________
+
+Name                 Stmts   Miss  Cover   Missing
+--------------------------------------------------
+src/__init__.py          0      0   100%
+src/application.py       8      0   100%
+src/domain.py           22      0   100%
+src/repository.py       18      0   100%
+src/security.py          8      0   100%
+--------------------------------------------------
+TOTAL                   56      0   100%
+Coverage HTML written to dir htmlcov
+Required test coverage of 80% reached. Total coverage: 100.00%
+=========================== short test summary info ============================
+XFAIL tests/test_service.py::test_rejected_payment_should_not_leave_order_confirmed - RIESGO CONOCIDO: checkout confirma el pedido antes de saber si el pago fue aceptado
+======================== 47 passed, 1 xfailed in 0.62s =========================

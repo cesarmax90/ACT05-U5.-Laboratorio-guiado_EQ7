@@ -1,0 +1,30 @@
+== COMMIT 1 (verde) ==
+1db7138 Unidad 5: pruebas y CI
+All checks passed!
+Required test coverage of 80% reached. Total coverage: 100.00%
+======================== 47 passed, 1 xfailed in 0.57s =========================
+CI local: OK
+codigo_de_salida=0
+
+== COMMIT 2 (rojo: aserción falsa) ==
+3e9fcdc ROMPER: aserción falsa (fallo controlado)
+All checks passed!
+tests/test_order.py::test_vip_discount FAILED                            [ 31%]
+E       AssertionError: assert 85.0 == 86
+tests/test_order.py:8: AssertionError
+Required test coverage of 80% reached. Total coverage: 100.00%
+FAILED tests/test_order.py::test_vip_discount - AssertionError: assert 85.0 =...
+codigo_de_salida=1
+
+== COMMIT 3 (revertido, verde otra vez) ==
+1883e1f Revert "ROMPER: aserción falsa (fallo controlado)"
+All checks passed!
+Required test coverage of 80% reached. Total coverage: 100.00%
+======================== 47 passed, 1 xfailed in 0.59s =========================
+CI local: OK
+codigo_de_salida=0
+
+== historial ==
+1883e1f Revert "ROMPER: aserción falsa (fallo controlado)"
+3e9fcdc ROMPER: aserción falsa (fallo controlado)
+1db7138 Unidad 5: pruebas y CI

@@ -1,0 +1,19 @@
+$ python -m pytest tests/test_order.py::test_cannot_confirm_twice -v   (FASE RED)
+============================= test session starts ==============================
+collecting ... collected 1 item
+
+tests/test_order.py::test_cannot_confirm_twice FAILED                    [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_cannot_confirm_twice ___________________________
+
+    def test_cannot_confirm_twice():
+        order = Order(100)
+        order.confirm()
+>       with pytest.raises(ValueError, match="already confirmed"):
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_order.py:45: Failed
+=========================== short test summary info ============================
+FAILED tests/test_order.py::test_cannot_confirm_twice - Failed: DID NOT RAISE...
+============================== 1 failed in 0.03s ===============================

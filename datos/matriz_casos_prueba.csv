@@ -1,0 +1,21 @@
+﻿ID,Tipo,Regla,Entrada,Resultado esperado,Prueba,Resultado real
+CP-01,Éxito,VIP recibe 15% de descuento,"Total=100, VIP","CONFIRMED, cobro 85",tests/test_order.py::test_vip_discount,PASSED
+CP-02,Éxito,VIP recibe 15% de descuento,"Total=200, VIP","CONFIRMED, cobro 170, descuento 30",tests/test_order.py::test_vip_discount_on_200,PASSED
+CP-03,Éxito,Cliente regular sin descuento,"Total=200, regular","CONFIRMED, cobro 200",tests/test_order.py::test_regular_customer_pays_full_200,PASSED
+CP-04,Éxito,Commit persiste el pedido,"save(id=2, total=250) + commit","Fila id=2, total 250, estado NEW",tests/test_repository.py::test_repository_persists_second_order,PASSED
+CP-05,Éxito,Rollback descarta el pedido,save(id=1) + rollback,Consulta id=1 devuelve None,tests/test_repository.py::test_repository_rollback,PASSED
+CP-06,Éxito,Pago aprobado (mock),"Pasarela devuelve True, total=100","Cobro 100, una sola llamada",tests/test_service.py::test_gateway_approved,PASSED
+CP-07,Éxito,Admin cancela pedido NEW ajeno,"NEW, admin, usuario distinto del dueño",Permitido,tests/test_security.py::test_admin_cancels_new_order_of_another_user,PASSED
+CP-08,Error,Cliente con deuda no confirma,"Total=100, deuda=50",CustomerHasDebt,tests/test_order.py::test_customer_debt,PASSED
+CP-09,Error,Total debe ser positivo,Total=0 y Total=-1,ValueError,tests/test_order.py::test_invalid_total,PASSED
+CP-10,Error,No confirmar dos veces (TDD),Confirmar un pedido ya CONFIRMED,ValueError already confirmed,tests/test_order.py::test_cannot_confirm_twice,PASSED
+CP-11,Error,Pago rechazado (mock),"VIP 200, pasarela devuelve False",RuntimeError; intento de cobro por 170,tests/test_service.py::test_gateway_rejected_for_vip_200_charges_170,PASSED
+CP-12,Error,Timeout de la pasarela,Pasarela lanza TimeoutError,TimeoutError se propaga,tests/test_service.py::test_gateway_timeout_propagates,PASSED
+CP-13,Error,Error de dominio no cobra,Total=0,ValueError y charge() sin llamar,tests/test_service.py::test_domain_error_never_reaches_gateway,PASSED
+CP-14,Error,Unicidad de id,Dos pedidos con id=1,IntegrityError; se conserva el original (120),tests/test_repository.py::test_repository_rejects_duplicate_id_and_keeps_original,PASSED
+CP-15,Error,Tercero no cancela,"NEW, usuario distinto del dueño, no admin",Denegado,tests/test_security.py::test_stranger_denied,PASSED
+CP-16,Error,SHIPPED nunca se cancela,"SHIPPED, admin",Denegado,tests/test_security.py::test_shipped_denied_even_admin,PASSED
+CP-17,Límite,Dueño a exactamente 24 h,"NEW, dueño, antigüedad=24:00",Denegado,tests/test_security.py::test_owner_at_exactly_24h_denied,PASSED
+CP-18,Límite,Dueño justo antes de 24 h,"NEW, dueño, antigüedad=23:59",Permitido,tests/test_security.py::test_authorization_matrix[dueno-23h59-NEW],PASSED
+CP-19,Límite,Importe mínimo con descuento redondeado,"Total=0.01, VIP (CSV CP07)","CONFIRMED, cobro 0.01",tests/test_casos_csv.py::test_casos_desde_csv[CP07],PASSED
+CP-20,Límite,Redondeo del descuento,"Total=99.99, VIP (CSV CP12)","CONFIRMED, cobro 84.99",tests/test_casos_csv.py::test_casos_desde_csv[CP12],PASSED

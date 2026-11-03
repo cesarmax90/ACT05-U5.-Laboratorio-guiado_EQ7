@@ -1,0 +1,12 @@
+$ python -m pytest tests/test_service.py -v -rx
+
+tests/test_service.py::test_gateway_approved PASSED                      [ 16%]
+tests/test_service.py::test_gateway_rejected PASSED                      [ 33%]
+tests/test_service.py::test_gateway_rejected_for_vip_200_charges_170 PASSED [ 50%]
+tests/test_service.py::test_gateway_timeout_propagates PASSED            [ 66%]
+tests/test_service.py::test_domain_error_never_reaches_gateway PASSED    [ 83%]
+tests/test_service.py::test_rejected_payment_should_not_leave_order_confirmed XFAIL [100%]
+
+=========================== short test summary info ============================
+XFAIL tests/test_service.py::test_rejected_payment_should_not_leave_order_confirmed - RIESGO CONOCIDO: checkout confirma el pedido antes de saber si el pago fue aceptado
+========================= 5 passed, 1 xfailed in 0.05s =========================

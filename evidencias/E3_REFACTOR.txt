@@ -1,0 +1,18 @@
+$ python -m pytest -v   (FASE REFACTOR: mismo comportamiento, suite completa)
+tests/test_order.py::test_vip_discount PASSED                            [  6%]
+tests/test_order.py::test_regular_no_discount PASSED                     [ 12%]
+tests/test_order.py::test_customer_debt PASSED                           [ 18%]
+tests/test_order.py::test_invalid_total[0] PASSED                        [ 25%]
+tests/test_order.py::test_invalid_total[-1] PASSED                       [ 31%]
+tests/test_order.py::test_vip_discount_on_200 PASSED                     [ 37%]
+tests/test_order.py::test_regular_customer_pays_full_200 PASSED          [ 43%]
+tests/test_order.py::test_cannot_confirm_twice PASSED                    [ 50%]
+tests/test_repository.py::test_repository_commit PASSED                  [ 56%]
+tests/test_repository.py::test_repository_rollback PASSED                [ 62%]
+tests/test_security.py::test_owner_within_24h PASSED                     [ 68%]
+tests/test_security.py::test_stranger_denied PASSED                      [ 75%]
+tests/test_security.py::test_shipped_denied_even_admin PASSED            [ 81%]
+tests/test_security.py::test_expired_denied PASSED                       [ 87%]
+tests/test_service.py::test_gateway_approved PASSED                      [ 93%]
+tests/test_service.py::test_gateway_rejected PASSED                      [100%]
+============================== 16 passed in 0.28s ==============================

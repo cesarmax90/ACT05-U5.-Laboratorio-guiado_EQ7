@@ -1,0 +1,8 @@
+$ python -m pytest tests/test_repository.py -v
+
+tests/test_repository.py::test_repository_commit PASSED                  [ 25%]
+tests/test_repository.py::test_repository_rollback PASSED                [ 50%]
+tests/test_repository.py::test_repository_persists_second_order PASSED   [ 75%]
+tests/test_repository.py::test_repository_rejects_duplicate_id_and_keeps_original PASSED [100%]
+
+============================== 4 passed in 0.25s ===============================

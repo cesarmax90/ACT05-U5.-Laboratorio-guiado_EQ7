@@ -1,0 +1,6 @@
+$ python -m pytest tests/test_order.py::test_cannot_confirm_twice -v   (FASE GREEN)
+tests/test_order.py::test_cannot_confirm_twice PASSED                    [100%]
+============================== 1 passed in 0.01s ===============================
+--- suite completa tras GREEN ---
+................                                                         [100%]
+16 passed in 0.31s
