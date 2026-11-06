@@ -1,0 +1,21 @@
+﻿ID,Tipo,Regla,Entrada,Resultado esperado,Prueba,Resultado real
+CP-PIA-01,Éxito,"Km excedente (US14): 200 km/día incluidos, $3 por km extra","3 días, 750 km",Cargo $450 (150 km excedentes),tests/test_reglas_novarent.py::test_cargo_kilometraje[CP-PIA-01],PASSED
+CP-PIA-02,Error,Km excedente (US14): el kilometraje no puede ser negativo,"1 día, -1 km",ValueError,tests/test_reglas_novarent.py::test_cargo_kilometraje_km_negativo_es_error_cp_pia_02,PASSED
+CP-PIA-03,Límite,Km excedente (US14): exactamente lo incluido no genera cargo,"1 día, 200 km",Cargo $0,tests/test_reglas_novarent.py::test_cargo_kilometraje[CP-PIA-03],PASSED
+CP-PIA-04,Límite,Km excedente (US14): 1 km sobre lo incluido,"1 día, 201 km",Cargo $3,tests/test_reglas_novarent.py::test_cargo_kilometraje[CP-PIA-04],PASSED
+CP-PIA-05,Éxito,Extensión (US11): el agente aprueba hasta 48 h,"Agente, +24 h, vence en 10 h",APROBADA; vencimiento +24 h,tests/test_reglas_novarent.py::test_extension_agente[CP-PIA-05],PASSED
+CP-PIA-06,Error,Extensión (US11): se pide con 2 h de anticipación mínima,"Agente, +24 h, vence en 1 h 58 min",ExtensionFueraDeTiempo,tests/test_reglas_novarent.py::test_extension_con_menos_de_2_horas_es_error_cp_pia_06,PASSED
+CP-PIA-07,Límite,Extensión (US11): 48 h exactas las aprueba el agente,"Agente, +48 h, vence en 10 h",APROBADA,tests/test_reglas_novarent.py::test_extension_agente[CP-PIA-07],PASSED
+CP-PIA-08,Límite,Extensión (US12): más de 48 h requiere Administración,"Agente, +49 h, vence en 10 h",REQUIERE_AUTORIZACION; vencimiento sin cambio,tests/test_reglas_novarent.py::test_extension_agente[CP-PIA-08],PASSED
+CP-PIA-09,Límite,Extensión (US11): anticipación de exactamente 2 h es válida,"Agente, +24 h, vence en 2 h",APROBADA,tests/test_reglas_novarent.py::test_extension_agente[CP-PIA-09],PASSED
+CP-PIA-10,Éxito,Cancelación (US03): gratis con 24 h o más de anticipación,Cancelar 48 h antes del inicio,"Estado Cancelada, sin penalización",tests/test_reglas_novarent.py::test_cancelacion[CP-PIA-10],PASSED
+CP-PIA-11,Error,Cancelación (US03): no se cancela dos veces,Reservación ya Cancelada,ValueError,tests/test_reglas_novarent.py::test_cancelar_reservacion_ya_cancelada_es_error_cp_pia_11,PASSED
+CP-PIA-12,Límite,Cancelación (US03): 24 h exactas no penalizan,Cancelar 24 h antes del inicio,"Estado Cancelada, sin penalización",tests/test_reglas_novarent.py::test_cancelacion[CP-PIA-12],PASSED
+CP-PIA-13,Límite,Cancelación (US03): 23 h 59 min sí penalizan,Cancelar 23 h 59 min antes,"Estado Cancelada, con penalización",tests/test_reglas_novarent.py::test_cancelacion[CP-PIA-13],PASSED
+CP-PIA-14,Éxito,No-show (US04): se libera pasadas 2 h,3 h después del inicio,Estado Liberada,tests/test_reglas_novarent.py::test_liberacion_por_no_show[CP-PIA-14],PASSED
+CP-PIA-15,Error,No-show (US04): no se libera dentro de la ventana,1 h 58 min después del inicio,ValueError; sigue Creada,tests/test_reglas_novarent.py::test_no_show_antes_de_2_horas_es_error_cp_pia_15,PASSED
+CP-PIA-16,Límite,No-show (US04): exactamente 2 h se libera,2 h después del inicio,Estado Liberada,tests/test_reglas_novarent.py::test_liberacion_por_no_show[CP-PIA-16],PASSED
+CP-PIA-17,Éxito,Persistencia: la reservación sobrevive al commit,Guardar R-100 y hacer commit,Se recupera con los mismos datos,tests/test_integracion_novarent.py::test_cp_pia_17_reservacion_se_persiste_con_commit,PASSED
+CP-PIA-18,Error,Persistencia: rollback descarta la reservación,Guardar R-100 y hacer rollback,obtener_por_folio devuelve None,tests/test_integracion_novarent.py::test_cp_pia_18_rollback_descarta_la_reservacion,PASSED
+CP-PIA-19,Éxito,Pasarela (mock): depósito aprobado abre el contrato,retener_deposito devuelve DEP-OK-1,Contrato Abierto; pasarela llamada 1 vez con 5000,tests/test_integracion_novarent.py::test_cp_pia_19_deposito_aprobado_abre_el_contrato,PASSED
+CP-PIA-20,Error,Pasarela (mock): depósito rechazado no abre el contrato,retener_deposito devuelve None,RuntimeError; contrato sigue Pendiente,tests/test_integracion_novarent.py::test_cp_pia_20_deposito_rechazado_no_deja_contrato_abierto,PASSED
